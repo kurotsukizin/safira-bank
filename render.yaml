@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: safira-bank
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/status
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SAFIRA_JWT_SECRET
+        sync: false

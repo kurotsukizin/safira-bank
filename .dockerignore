@@ -1,0 +1,13 @@
+target/
+.git/
+.idea/
+.vscode/
+.env
+.env.*
+*.log
+*.zip
+*.dump
+*.backup
+*.bak
+docs/
+database/

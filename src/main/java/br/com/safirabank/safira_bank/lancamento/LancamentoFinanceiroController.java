@@ -1,7 +1,7 @@
-package br.com.safirabank.safira_bank.conta;
+package br.com.safirabank.safira_bank.lancamento;
 
-import br.com.safirabank.safira_bank.lancamento.LancamentoFinanceiroRepository;
-import br.com.safirabank.safira_bank.lancamento.LancamentoResumoResponse;
+import br.com.safirabank.safira_bank.conta.ContaBancaria;
+import br.com.safirabank.safira_bank.conta.ContaBancariaRepository;
 import br.com.safirabank.safira_bank.usuario.Usuario;
 import br.com.safirabank.safira_bank.usuario.UsuarioRepository;
 

@@ -1,441 +1,222 @@
-const CHAVE_TOKEN = "safira.token";
-const CHAVE_CONTA = "safira.contaId";
-
-const formatarMoeda = (valor) =>
-    new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    }).format(valor);
-
-const formatarDataHora = (valor) => {
-    if (!valor) return "—";
-
-    const data = new Date(valor);
-
-    if (Number.isNaN(data.getTime())) return "—";
-
-    return new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-    }).format(data);
+"use strict";
+const CHAVE_TOKEN = "safira.token", CHAVE_CONTA = "safira.contaId";
+const formatarMoeda = v => new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL"}).format(v);
+const formatarDataHora = v => {
+    const d = new Date(v);
+    return !v || Number.isNaN(d.getTime()) ? "—" : new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short"
+    }).format(d);
 };
-
-const formatarStatus = (status) => ({
-    CONCLUIDA: "Concluída",
-    PENDENTE: "Pendente",
-    CANCELADA: "Cancelada"
-}[status] || status || "—");
-
-const definirTexto = (id, texto) => {
-    const elemento = document.getElementById(id);
-
-    if (elemento) {
-        elemento.textContent = texto;
-    }
+const formatarStatus = s => ({CONCLUIDA: "Concluída", PENDENTE: "Pendente", CANCELADA: "Cancelada"}[s] || s || "—");
+const definirTexto = (id, t) => {
+    const e = document.getElementById(id);
+    if (e) e.textContent = t;
 };
-
 const limparAutenticacao = () => {
     sessionStorage.removeItem(CHAVE_TOKEN);
     sessionStorage.removeItem(CHAVE_CONTA);
 };
-
+const estaNoLogin = () => location.pathname === "/" || location.pathname.endsWith("/index.html");
 const voltarAoLogin = () => {
     limparAutenticacao();
-
-    const caminho = window.location.pathname;
-
-    const estaNoLogin =
-        caminho === "/" ||
-        caminho.endsWith("/index.html");
-
-    if (!estaNoLogin) {
-        window.location.replace("/index.html");
-    }
+    if (!estaNoLogin()) location.replace("/index.html");
 };
-const consultarApi = async (
-    url,
-    {autenticar = true, ...opcoes} = {}
-) => {
+const consultarApi = async (url, {autenticar = true, ...opcoes} = {}) => {
     const headers = new Headers(opcoes.headers);
     headers.set("Accept", "application/json");
-
     if (autenticar) {
-        const token = sessionStorage.getItem(CHAVE_TOKEN);
-
-        if (!token) {
+        const t = sessionStorage.getItem(CHAVE_TOKEN);
+        if (!t) {
             voltarAoLogin();
-            throw new Error("Autenticação necessária.");
+            throw Error("Autenticação necessária.");
         }
-
-        headers.set("Authorization", `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${t}`);
     }
-
-    const resposta = await fetch(url, {
-        ...opcoes,
-        headers,
-        cache: "no-store",
-        credentials: "omit"
-    });
-
-    const texto = await resposta.text();
+    const r = await fetch(url, {...opcoes, headers, cache: "no-store", credentials: "omit"});
+    const texto = await r.text();
     let dados = null;
-
-    if (texto) {
-        try {
-            dados = JSON.parse(texto);
-        } catch {
-            dados = null;
-        }
+    try {
+        dados = texto ? JSON.parse(texto) : null;
+    } catch {
     }
-
-    if (!resposta.ok) {
-        if (autenticar && resposta.status === 401) {
+    if (!r.ok) {
+        if (autenticar && r.status === 401) {
             voltarAoLogin();
-            throw new Error("Sessão expirada. Entre novamente.");
+            throw Error("Sessão expirada. Entre novamente.");
         }
-
-        const mensagem = !autenticar && resposta.status === 401
-            ? "E-mail ou senha inválidos, ou usuário sem acesso ativo."
-            : dados?.mensagem
-            || dados?.detail
-            || `Não foi possível concluir a consulta (HTTP ${resposta.status}).`;
-
-        throw new Error(mensagem);
+        throw Error(!autenticar && r.status === 401 ? "E-mail ou senha inválidos, ou usuário sem acesso ativo." : dados?.mensagem || dados?.detail || `Não foi possível concluir a consulta (HTTP ${r.status}).`);
     }
-
     return dados;
 };
-
 const configurarLogin = () => {
-    const formulario = document.getElementById("form-login");
-
-    if (!formulario) return;
-
-    // Voltar ao login encerra a autenticação local anterior.
+    const f = document.getElementById("form-login");
+    if (!f) return;
     limparAutenticacao();
-
-    const campoSenha = document.getElementById("senha");
-    const alternar = document.getElementById("alternar-senha");
-
+    const senha = document.getElementById("senha"), alternar = document.getElementById("alternar-senha");
     alternar?.addEventListener("click", () => {
-        const mostrar = campoSenha.type === "password";
-
-        campoSenha.type = mostrar ? "text" : "password";
+        const mostrar = senha.type === "password";
+        senha.type = mostrar ? "text" : "password";
         alternar.textContent = mostrar ? "Ocultar" : "Mostrar";
         alternar.setAttribute("aria-pressed", String(mostrar));
-        alternar.setAttribute(
-            "aria-label",
-            mostrar ? "Ocultar senha" : "Mostrar senha"
-        );
+        alternar.setAttribute("aria-label", mostrar ? "Ocultar senha" : "Mostrar senha");
     });
-
-    formulario.addEventListener("submit", async (evento) => {
-        evento.preventDefault();
-
-        const botao = formulario.querySelector(
-            'button[type="submit"]'
-        );
-
-        botao.disabled = true;
+    f.addEventListener("submit", async e => {
+        e.preventDefault();
+        const b = f.querySelector('button[type="submit"]');
+        b.disabled = true;
         definirTexto("mensagem-login", "Validando acesso...");
-
         try {
             limparAutenticacao();
-
-            const dados = await consultarApi("/api/auth/login", {
+            const d = await consultarApi("/api/auth/login", {
                 autenticar: false,
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: document.getElementById("email").value.trim(),
-                    senha: campoSenha.value
-                })
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email: document.getElementById("email").value.trim(), senha: senha.value})
             });
-
-            if (!dados?.accessToken) {
-                throw new Error("A API não retornou um token de acesso.");
-            }
-
-            sessionStorage.setItem(
-                CHAVE_TOKEN,
-                dados.accessToken
-            );
-
-            campoSenha.value = "";
-            window.location.replace("inicio.html");
+            if (!d?.accessToken) throw Error("A API não retornou um token de acesso.");
+            sessionStorage.setItem(CHAVE_TOKEN, d.accessToken);
+            senha.value = "";
+            location.replace("inicio.html");
         } catch (erro) {
-            definirTexto(
-                "mensagem-login",
-                erro.message || "Não foi possível realizar o login."
-            );
+            definirTexto("mensagem-login", erro.message || "Não foi possível realizar o login.");
         } finally {
-            botao.disabled = false;
+            b.disabled = false;
         }
     });
 };
-
-const configurarSaida = () => {
-    document.querySelectorAll('a[href="index.html"]')
-        .forEach((link) => {
-            link.addEventListener("click", () => {
-                limparAutenticacao();
-            });
-        });
+const configurarSaida = () => document.querySelectorAll('[data-sair]').forEach(a => a.addEventListener("click", () => limparAutenticacao()));
+const criarCelula = t => {
+    const e = document.createElement("td");
+    e.textContent = t;
+    return e;
 };
-
-const criarCelula = (texto) => {
-    const celula = document.createElement("td");
-    celula.textContent = texto;
-    return celula;
-};
-
-const mostrarMensagemHistorico = (mensagem) => {
+const mostrarMensagemHistorico = m => {
     const corpo = document.getElementById("historico");
-
     if (!corpo) return;
-
-    const linha = document.createElement("tr");
-    const coluna = criarCelula(mensagem);
-
-    coluna.colSpan = 4;
-    linha.appendChild(coluna);
-    corpo.replaceChildren(linha);
+    const l = document.createElement("tr"), c = criarCelula(m);
+    c.colSpan = 4;
+    l.append(c);
+    corpo.replaceChildren(l);
 };
-
-const preencherResumo = (conta) => {
-    definirTexto("titulo-inicio", `Olá, ${conta.titular}`);
-    definirTexto("saldo-conta", formatarMoeda(conta.saldo));
-
-    definirTexto(
-        "dados-conta",
-        `Agência ${conta.agencia} · Conta ${conta.numero}`
-    );
-
-    definirTexto(
-        "status-conta",
-        "Saldo consultado na API para a conta selecionada."
-    );
+const preencherResumo = c => {
+    definirTexto("titulo-inicio", `Olá, ${c.titular}`);
+    definirTexto("saldo-conta", formatarMoeda(c.saldo));
+    definirTexto("dados-conta", `Agência ${c.agencia} · Conta ${c.numero}`);
+    definirTexto("status-conta", "Saldo consultado na API para a conta selecionada.");
 };
-
-const carregarHistorico = async (contaId) => {
+const carregarHistorico = async id => {
     const corpo = document.getElementById("historico");
-
     if (!corpo) return;
-
     mostrarMensagemHistorico("Carregando movimentações...");
-
     try {
-        const lancamentos = await consultarApi(
-            `/api/lancamentos?contaId=${encodeURIComponent(contaId)}`
-        );
-
-        if (!Array.isArray(lancamentos)) {
-            throw new Error("O histórico não retornou uma lista.");
-        }
-
-        if (lancamentos.length === 0) {
-            mostrarMensagemHistorico(
-                "Nenhum lançamento encontrado para esta conta."
-            );
+        const lista = await consultarApi(`/api/lancamentos?contaId=${encodeURIComponent(id)}`);
+        if (!Array.isArray(lista)) throw Error("O histórico não retornou uma lista.");
+        if (!lista.length) {
+            mostrarMensagemHistorico("Nenhum lançamento encontrado para esta conta.");
             return;
         }
-
-        const linhas = document.createDocumentFragment();
-
-        lancamentos.forEach((lancamento) => {
-            const linha = document.createElement("tr");
-
-            linha.appendChild(
-                criarCelula(formatarDataHora(lancamento.criadoEm))
-            );
-
-            const descricao = criarCelula("");
-            const principal = document.createElement("span");
-            const detalhe = document.createElement("span");
-
+        const fragmento = document.createDocumentFragment();
+        for (const l of lista) {
+            const tr = document.createElement("tr");
+            tr.append(criarCelula(formatarDataHora(l.criadoEm)));
+            const desc = criarCelula(""), principal = document.createElement("span"),
+                detalhe = document.createElement("span");
             principal.className = "descricao-principal";
-            principal.textContent =
-                lancamento.descricao || "Lançamento financeiro";
-
+            principal.textContent = l.descricao || "Lançamento financeiro";
             detalhe.className = "descricao-detalhe";
-            detalhe.textContent = lancamento.tipo === "CREDITO"
-                ? "Crédito na conta"
-                : lancamento.tipo === "DEBITO"
-                    ? "Débito na conta"
-                    : "Movimentação da conta";
-
-            descricao.append(principal, detalhe);
-            linha.appendChild(descricao);
-
-            const valor = criarCelula("");
-            const credito = lancamento.tipo === "CREDITO";
-            const debito = lancamento.tipo === "DEBITO";
-
-            valor.className = credito
-                ? "valor-entrada"
-                : debito
-                    ? "valor-saida"
-                    : "valor-neutro";
-
-            const sinal = credito ? "+ " : debito ? "− " : "";
-
-            valor.textContent =
-                sinal + formatarMoeda(lancamento.valor);
-
-            linha.appendChild(valor);
-
-            const celulaStatus = criarCelula("");
-            const status = document.createElement("span");
-
-            status.classList.add("status");
-            status.textContent = formatarStatus(lancamento.status);
-
-            if (lancamento.status === "CONCLUIDA") {
-                status.classList.add("status-concluida");
-            } else if (lancamento.status === "CANCELADA") {
-                status.classList.add("status-cancelada");
-            }
-
-            celulaStatus.appendChild(status);
-            linha.appendChild(celulaStatus);
-            linhas.appendChild(linha);
-        });
-
-        corpo.replaceChildren(linhas);
-    } catch (erro) {
-        mostrarMensagemHistorico(erro.message);
+            detalhe.textContent = l.tipo === "CREDITO" ? "Crédito na conta" : l.tipo === "DEBITO" ? "Débito na conta" : "Movimentação da conta";
+            desc.append(principal, detalhe);
+            tr.append(desc);
+            const valor = criarCelula((l.tipo === "CREDITO" ? "+ " : l.tipo === "DEBITO" ? "− " : "") + formatarMoeda(l.valor));
+            valor.className = l.tipo === "CREDITO" ? "valor-entrada" : l.tipo === "DEBITO" ? "valor-saida" : "valor-neutro";
+            tr.append(valor);
+            const c = criarCelula(""), s = document.createElement("span");
+            s.className = "status";
+            if (l.status === "CONCLUIDA") s.classList.add("status-concluida");
+            if (l.status === "CANCELADA") s.classList.add("status-cancelada");
+            s.textContent = formatarStatus(l.status);
+            c.append(s);
+            tr.append(c);
+            fragmento.append(tr);
+        }
+        corpo.replaceChildren(fragmento);
+    } catch (e) {
+        mostrarMensagemHistorico(e.message);
     }
 };
-
-const selecionarConta = async (conta) => {
-    sessionStorage.setItem(CHAVE_CONTA, String(conta.id));
-    preencherResumo(conta);
-    await carregarHistorico(conta.id);
+const selecionarConta = async c => {
+    sessionStorage.setItem(CHAVE_CONTA, String(c.id));
+    preencherResumo(c);
+    await carregarHistorico(c.id);
 };
-
-const criarSeletorContas = (contas, contaAtual) => {
+const criarSeletorContas = (contas, atual) => {
+    document.getElementById("seletor-contas")?.remove();
     if (contas.length < 2) return;
-
-    const campo = document.createElement("div");
+    const campo = document.createElement("div"), label = document.createElement("label"),
+        select = document.createElement("select");
+    campo.id = "seletor-contas";
     campo.className = "campo";
-
-    const label = document.createElement("label");
     label.htmlFor = "conta-selecionada";
     label.textContent = "Conta para consulta";
-
-    const select = document.createElement("select");
     select.id = "conta-selecionada";
-
-    contas.forEach((conta) => {
-        const option = document.createElement("option");
-
-        option.value = String(conta.id);
-        option.textContent =
-            `Agência ${conta.agencia} · Conta ${conta.numero}`;
-
-        select.appendChild(option);
+    contas.forEach(c => {
+        const o = document.createElement("option");
+        o.value = String(c.id);
+        o.textContent = `Agência ${c.agencia} · Conta ${c.numero}`;
+        select.append(o);
     });
-
-    select.value = String(contaAtual.id);
-
+    select.value = String(atual.id);
     select.addEventListener("change", async () => {
-        const conta = contas.find(
-            (item) => String(item.id) === select.value
-        );
-
-        if (!conta) return;
-
+        const c = contas.find(c => String(c.id) === select.value);
+        if (!c) return;
         select.disabled = true;
-
         try {
-            await selecionarConta(conta);
+            await selecionarConta(c);
         } finally {
             select.disabled = false;
         }
     });
-
     campo.append(label, select);
-
-    const referencia = document.getElementById("dados-conta");
-
-    if (referencia) {
-        referencia.insertAdjacentElement("afterend", campo);
-    } else {
-        document.getElementById("conteudo")?.prepend(campo);
-    }
+    document.getElementById("dados-conta")?.insertAdjacentElement("afterend", campo);
 };
-
 const carregarAreaAutenticada = async () => {
     if (!sessionStorage.getItem(CHAVE_TOKEN)) {
         voltarAoLogin();
         return;
     }
-
     try {
         const contas = await consultarApi("/api/contas/minhas");
-
-        if (!Array.isArray(contas)) {
-            throw new Error("A API não retornou uma lista de contas.");
-        }
-
-        if (contas.length === 0) {
+        if (!Array.isArray(contas)) throw Error("A API não retornou uma lista de contas.");
+        if (!contas.length) {
             sessionStorage.removeItem(CHAVE_CONTA);
-
             definirTexto("titulo-inicio", "Minha conta");
             definirTexto("saldo-conta", "—");
             definirTexto("dados-conta", "Nenhuma conta vinculada.");
             definirTexto("status-conta", "Usuário sem conta cadastrada.");
-
-            mostrarMensagemHistorico(
-                "Nenhuma conta vinculada ao usuário."
-            );
+            mostrarMensagemHistorico("Nenhuma conta vinculada ao usuário.");
             return;
         }
-
-        const idSalvo = sessionStorage.getItem(CHAVE_CONTA);
-
-        const contaAtual = contas.find(
-            (conta) => String(conta.id) === idSalvo
-        ) || contas[0];
-
-        criarSeletorContas(contas, contaAtual);
-        await selecionarConta(contaAtual);
-    } catch (erro) {
+        const atual = contas.find(c => String(c.id) === sessionStorage.getItem(CHAVE_CONTA)) || contas[0];
+        criarSeletorContas(contas, atual);
+        await selecionarConta(atual);
+    } catch (e) {
         definirTexto("titulo-inicio", "Minha conta");
         definirTexto("saldo-conta", "Indisponível");
         definirTexto("dados-conta", "Não foi possível consultar a conta.");
-        definirTexto("status-conta", erro.message);
-        mostrarMensagemHistorico(erro.message);
+        definirTexto("status-conta", e.message);
+        mostrarMensagemHistorico(e.message);
     }
 };
-
 document.addEventListener("DOMContentLoaded", () => {
     configurarSaida();
-
-    const caminho = window.location.pathname;
-
-    const estaNoLogin =
-        caminho === "/" ||
-        caminho.endsWith("/index.html");
-
-    if (estaNoLogin) {
-        if (document.getElementById("form-login")) {
-            configurarLogin();
-        }
-
+    if (estaNoLogin()) {
+        configurarLogin();
         return;
     }
-
-    const paginaConta =
-        document.getElementById("titulo-inicio") ||
-        document.getElementById("historico");
-
-    if (paginaConta) {
-        carregarAreaAutenticada();
+    if (!sessionStorage.getItem(CHAVE_TOKEN)) {
+        voltarAoLogin();
+        return;
     }
+    if (document.getElementById("historico") || document.getElementById("titulo-inicio")) carregarAreaAutenticada();
 });

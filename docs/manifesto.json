@@ -1,0 +1,247 @@
+[
+  {
+    "arquivo": ".dockerignore",
+    "bytes": 64,
+    "sha256": "fe25ed465bc8d50ba7bb59c5ef102121db846dea0fcdb2a5594eb3baf390054c"
+  },
+  {
+    "arquivo": ".env.example",
+    "bytes": 239,
+    "sha256": "d8e726015d4af77c5c7925e5c1a2bffa170f0537aee5a3121a3c1b8a7b6cd7b0"
+  },
+  {
+    "arquivo": ".gitignore",
+    "bytes": 78,
+    "sha256": "f646a88f84607f5bc3dd8bf3edfe7e7a4a61e52a70d4915b8649b38273d1d719"
+  },
+  {
+    "arquivo": "Dockerfile",
+    "bytes": 413,
+    "sha256": "2c54f0a8e8e2871b1ed64ebd5fb198f5afa0d267fc95d19d16790c2bf42c568d"
+  },
+  {
+    "arquivo": "README.md",
+    "bytes": 7672,
+    "sha256": "808afb108c2b62b460d60d62ec1abdf4149c356650e2076e87dbc7eeb2066913"
+  },
+  {
+    "arquivo": "database/01-schema.sql",
+    "bytes": 1852,
+    "sha256": "4060439868ae7f2687a8897f868c0dcb7da2d67c05bc12e3317dc93d717e1205"
+  },
+  {
+    "arquivo": "database/02-demo-opcional.sql",
+    "bytes": 994,
+    "sha256": "9db41ab82bf9c0147a307bae2aa2e0d10e1e250b344b07858d956a41c1d44630"
+  },
+  {
+    "arquivo": "docs/ALTERACOES.md",
+    "bytes": 1838,
+    "sha256": "a4c401c92b8241961b99ac448dc9b3b5f5fd8cb16e3e01e8e16a729ca92acd63"
+  },
+  {
+    "arquivo": "docs/verificacoes.json",
+    "bytes": 895,
+    "sha256": "9f8da4f1a69f45b8379bee0caa5a989382022e933fbd48ab9c4be1ca7ec16761"
+  },
+  {
+    "arquivo": "pom.xml",
+    "bytes": 1781,
+    "sha256": "9a398faaf193a41a01a867d5917ee06959623711c6f740abd47db73dd9db2cc7"
+  },
+  {
+    "arquivo": "render.yaml",
+    "bytes": 326,
+    "sha256": "f348ab64fa89c83b3aeab452f2002cb75af87ee27aa12a058982c40a3da7cb69"
+  },
+  {
+    "arquivo": "scripts/gerar-segredo.ps1",
+    "bytes": 380,
+    "sha256": "683c95731de9bb09e5599adf4ef214802141c39d2cc4e56284a4c78012c9d1da"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/GerarHashSenha.java",
+    "bytes": 645,
+    "sha256": "a5cae6b6b57e8266e65c7f4da8b88e1884fc2781ce3381c537f47770abac2aac"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/SafiraBankApplication.java",
+    "bytes": 317,
+    "sha256": "f32c81151f6c002790f2626282b7ab42ae35376c133dc64a3125e35e9e77816c"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/auth/AuthController.java",
+    "bytes": 4383,
+    "sha256": "133ad36b638d47cb2e9f59f51a63d04c49d3d668973a32e2b1bd443a39f82335"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/config/JwtConfig.java",
+    "bytes": 1898,
+    "sha256": "7da9bf76b123e26fc05490700154939ce1f1b7da924428fd7f244bed0508143a"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/config/SecurityConfig.java",
+    "bytes": 4215,
+    "sha256": "1b057b7f5417a365431200e9a3aedae91d71ab572074f22f0127a1f8923b9584"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaBancaria.java",
+    "bytes": 1525,
+    "sha256": "a6860e031e2a7340e674aae09896009b7ae92f56772ba2e6242dcc772f088642"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaBancariaRepository.java",
+    "bytes": 1084,
+    "sha256": "f7d2987288b60f163289ae3339806bebe244349ca10bb45342dd4f0da687bf69"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaCadastroController.java",
+    "bytes": 647,
+    "sha256": "1616a6d88be37384f5bafb3f3138b0b6f772e2db55115bbdeed20e0dd05e8f03"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaCadastroResponse.java",
+    "bytes": 199,
+    "sha256": "f0ef4f350ce620afc97eaa150cee02961a15860db308df43ad31823912b5c010"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaConsultaService.java",
+    "bytes": 1120,
+    "sha256": "3aee203b548ad487314683d283a5a5a2f265faead5d1b71df366bd04fabf9420"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaController.java",
+    "bytes": 1000,
+    "sha256": "01d17f3c5634fab545f879901cba0231288f305f7df5b28e0eec741e42be1721"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaResumoResponse.java",
+    "bytes": 260,
+    "sha256": "68db310d63aaf436d79e6ed58876a06bf2459d327103e77291b186dd37b711c9"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaSaldoController.java",
+    "bytes": 627,
+    "sha256": "c9d58532bb823b2f97a21b02851c97ceda427aa9105965ee88ef1a37eb01253b"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/ContaSaldoService.java",
+    "bytes": 2848,
+    "sha256": "2d18cfd0646fe20b3a650790b18c5962bed714701ccf4b0131d3050f3bec3875"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/conta/LancamentoFinanceiroController.java",
+    "bytes": 3298,
+    "sha256": "7947874098dfebf57cb3bd2d3b9b0d6168a7ca7489f7cbe2e912fa686d5c1da0"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/exception/ApiExceptionHandler.java",
+    "bytes": 1275,
+    "sha256": "0f185c09edcc4a26d0124e8e73503e1c42a9aa49ac8137a9bdf35cfabe78586e"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/lancamento/LancamentoFinanceiro.java",
+    "bytes": 1820,
+    "sha256": "444efe88a99a93d163973ae7abfb962e0e8986a9a0503f26532f033976296862"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/lancamento/LancamentoFinanceiroRepository.java",
+    "bytes": 1054,
+    "sha256": "14456e9497d3665ddd6d5884fc7f3c32b55cee2aaa5a30578fd4b9c7007a78c9"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/lancamento/LancamentoResumoResponse.java",
+    "bytes": 245,
+    "sha256": "70c85d2f2adc2ecabd61ce16d4c2c3acd2d6c64382f35c11308fa1e0d8303397"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/seguranca/UsuarioDetailsService.java",
+    "bytes": 951,
+    "sha256": "8ffc392b86bf1e17890cbb7b3c6c6c7d6ffb4f2374ff2194993e5c07c74006a5"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/status/StatusController.java",
+    "bytes": 361,
+    "sha256": "d909a29ffec7f49199b73121a35dcae393db4952b7de315e490f1e99ee5ab41e"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transacao/Transacao.java",
+    "bytes": 1662,
+    "sha256": "9a994d83185e691661a298a2add71d422fa0b09c02d2e7a090390f48f3d893e0"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transacao/TransacaoRepository.java",
+    "bytes": 189,
+    "sha256": "9e5e7211dc19c78862d466e6e593f6946673a253fecfe1bda0a9239aa863f38f"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transferencia/TransferenciaController.java",
+    "bytes": 920,
+    "sha256": "6b17b6b2e3ad3318aa88c5e18337e200e7d390e3d05c9c91ed1fffd6e4405c94"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transferencia/TransferenciaRequest.java",
+    "bytes": 181,
+    "sha256": "b516b9431f6f902e3982c5b192c7725498e9aa243f8f3fec25c1b1b223f2e18e"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transferencia/TransferenciaResponse.java",
+    "bytes": 140,
+    "sha256": "97fe53392c7ce9611d78fd620b44ab072e5c718225ad1423911ecf2790045d50"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/transferencia/TransferenciaService.java",
+    "bytes": 1261,
+    "sha256": "7dec33ad23c0e6ede235df1edf7a22cfef2d6ffbf3f28f43575f9c676acdeafe"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/usuario/Usuario.java",
+    "bytes": 1054,
+    "sha256": "ed75849bb483d0d6b83ddcc2f5292877f10066cf583a9b6e39840a7308be45de"
+  },
+  {
+    "arquivo": "src/main/java/br/com/safirabank/safira_bank/usuario/UsuarioRepository.java",
+    "bytes": 257,
+    "sha256": "be00bc4acf14b7ddafc6f9dcf30f91f573d36d3befeb315796c64a4e15f4a617"
+  },
+  {
+    "arquivo": "src/main/resources/application.properties",
+    "bytes": 419,
+    "sha256": "1c97d309734d370796981dc60bb1addc8c4597f3b8e624e53bf3d02297120b91"
+  },
+  {
+    "arquivo": "src/main/resources/static/confirmacao.html",
+    "bytes": 2275,
+    "sha256": "c6ed713a3d4ab3ccf167715d89caa9dc01340a39d855a648605339347f2ee6c6"
+  },
+  {
+    "arquivo": "src/main/resources/static/css/style.css",
+    "bytes": 7212,
+    "sha256": "a500768f9fe478a4bff0b78b55ba4790c19d86f28d8195b6a1f0683db8aeb6ab"
+  },
+  {
+    "arquivo": "src/main/resources/static/historico.html",
+    "bytes": 2622,
+    "sha256": "9e377ef04407fabb0fb5fca8bf8b7378da9cdd2ecaaa94838946c6c84851e3f4"
+  },
+  {
+    "arquivo": "src/main/resources/static/index.html",
+    "bytes": 1966,
+    "sha256": "344e86ede75b8ac01bd0518a95652425ee01a8759c0c5d0f59c1fb63c2d9a46e"
+  },
+  {
+    "arquivo": "src/main/resources/static/inicio.html",
+    "bytes": 3449,
+    "sha256": "4f6522afe39ae19f2e29ee81e492028bf1891052d1406cee24f7cc55bc07d595"
+  },
+  {
+    "arquivo": "src/main/resources/static/js/app.js",
+    "bytes": 7522,
+    "sha256": "bf4cc2f4f215eb939f63b2cc1840c0d786af0c26b3107c1ecfd919b710b34fa1"
+  },
+  {
+    "arquivo": "src/main/resources/static/transferencia.html",
+    "bytes": 2243,
+    "sha256": "16946b6e1ddd72ea96f69b080b4f89a46f2c2ec7de8ba3f8938fc05edcf7d95f"
+  }
+]

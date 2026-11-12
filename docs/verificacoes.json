@@ -1,0 +1,37 @@
+{
+  "pom_xml_valido": true,
+  "java_arquivos": 29,
+  "login_post_permitido": true,
+  "lancamentos_na_regra_autenticada": true,
+  "sem_dados_demonstrativos_publicos": true,
+  "fallback_denyAll": true,
+  "java_maven_disponiveis": false,
+  "compilacao_executada": false,
+  "deploy_executado": false,
+  "html": {
+    "index.html": {
+      "ids_unicos": true,
+      "recursos_presentes": true
+    },
+    "historico.html": {
+      "ids_unicos": true,
+      "recursos_presentes": true
+    },
+    "confirmacao.html": {
+      "ids_unicos": true,
+      "recursos_presentes": true
+    },
+    "inicio.html": {
+      "ids_unicos": true,
+      "recursos_presentes": true
+    },
+    "transferencia.html": {
+      "ids_unicos": true,
+      "recursos_presentes": true
+    }
+  },
+  "javascript_sintaxe_node": true,
+  "javascript_erro": "",
+  "packages_caminhos_corretos": true,
+  "senha_original_ausente": true
+}

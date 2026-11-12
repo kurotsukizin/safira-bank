@@ -10,23 +10,29 @@ import java.util.List;
 public interface LancamentoFinanceiroRepository
         extends JpaRepository<LancamentoFinanceiro, Long> {
 
-    @Query(value = """
-            SELECT COALESCE(
-                SUM(
-                    CASE
-                        WHEN l.tipo = 'CREDITO' THEN l.valor
-                        WHEN l.tipo = 'DEBITO' THEN -l.valor
-                        ELSE 0
-                    END
-                ),
-                0
-            )
-            FROM public.lancamento_financeiro l
-            JOIN public.transacao t ON t.id = l.transacao_id
-            WHERE l.conta_id = :contaId
-              AND t.status = 'CONCLUIDA'
-            """, nativeQuery = true)
-    BigDecimal calcularSaldo(@Param("contaId") Long contaId);
+    @Query(
+            value = """
+                    SELECT COALESCE(
+                        SUM(
+                            CASE
+                                WHEN l.tipo = 'CREDITO' THEN l.valor
+                                WHEN l.tipo = 'DEBITO' THEN -l.valor
+                                ELSE 0
+                            END
+                        ),
+                        0
+                    )
+                    FROM public.lancamento_financeiro l
+                    JOIN public.transacao t
+                        ON t.id = l.transacao_id
+                    WHERE l.conta_id = :contaId
+                      AND t.status = 'CONCLUIDA'
+                    """,
+            nativeQuery = true
+    )
+    BigDecimal calcularSaldo(
+            @Param("contaId") Long contaId
+    );
 
     List<LancamentoFinanceiro> findAllByOrderByIdDesc();
 
