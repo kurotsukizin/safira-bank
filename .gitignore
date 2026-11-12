@@ -31,3 +31,19 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Credenciais e configurações locais ###
+.env
+.env.*
+!.env.example
+
+### Logs ###
+*.log
+
+### Arquivos temporários e pacotes ###
+*.bak
+*.zip
+
+### Backups do banco ###
+*.dump
+*.backup
