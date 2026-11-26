@@ -1,0 +1,36 @@
+/* Seções educativas do Safira Bank. Arquivo independente: não altera style.css. */
+.edu-secao { margin-top: 1.5rem; }
+.edu-lista { display: grid; gap: .75rem; margin-top: 1rem; }
+.edu-item { border: 1px solid #c9d3df; border-radius: 8px; background: #fff; color: #1b2733; }
+.edu-item summary { cursor: pointer; padding: .85rem 1rem; font-weight: 600; min-height: 44px; }
+.edu-item p { margin: 0; padding: 0 1rem 1rem; line-height: 1.6; }
+.edu-etapas, .edu-alertas { margin: 1rem 0 0; padding-left: 1.4rem; line-height: 1.6; }
+.edu-etapas li { margin-bottom: .6rem; }
+.edu-nota { margin: 1rem 0 0; padding: .85rem 1rem; border-left: 4px solid #0b57d0; background: #eef3fb; color: #1b2733; border-radius: 4px; line-height: 1.6; }
+
+.edu-abas { display: flex; gap: .5rem; margin: 1.5rem 0 0; border-bottom: 2px solid #c9d3df; }
+.edu-aba { font: inherit; font-weight: 600; padding: .75rem 1.25rem; min-height: 44px; border: 0; border-bottom: 4px solid transparent; background: transparent; color: #1b2733; cursor: pointer; }
+.edu-aba[aria-selected="true"] { border-bottom-color: #0b57d0; color: #0b3d91; }
+.edu-painel { margin-top: 0; }
+
+.edu-progresso { font-weight: 600; margin: 0 0 .75rem; }
+.edu-grupo { border: 0; padding: 0; margin: 0 0 1rem; }
+.edu-grupo legend { font-size: 1.15rem; font-weight: 700; margin-bottom: .75rem; padding: 0; }
+.edu-opcao { display: flex; gap: .75rem; align-items: flex-start; padding: .85rem 1rem; margin-bottom: .6rem; border: 2px solid #c9d3df; border-radius: 8px; background: #fff; color: #1b2733; cursor: pointer; min-height: 44px; }
+.edu-opcao input { margin-top: .25rem; flex: none; }
+.edu-opcao.edu-certa { border-color: #1b6e3c; background: #e8f5ec; }
+.edu-opcao.edu-errada { border-color: #a32020; background: #fdecec; }
+.edu-opcao.edu-certa span::after { content: " (correta)"; font-weight: 700; }
+.edu-opcao.edu-errada span::after { content: " (sua resposta)"; font-weight: 700; }
+.edu-erro { color: #a32020; font-weight: 600; min-height: 1.4rem; margin: 0 0 .5rem; }
+.edu-feedback { margin-top: 1rem; line-height: 1.6; }
+.edu-resultado { font-weight: 700; }
+
+.edu-videos { display: grid; gap: 1.5rem; margin-top: 1rem; }
+.edu-video { border: 1px solid #c9d3df; border-radius: 8px; padding: 1rem; background: #fff; color: #1b2733; }
+.edu-video h3 { margin-top: 0; }
+.edu-fonte { font-size: .9rem; }
+.edu-quadro { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 1rem 0 .75rem; background: #000; }
+.edu-quadro iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.edu-aba:focus-visible, .edu-opcao:focus-within, .edu-item summary:focus-visible, .edu-painel:focus-visible, #quiz-resultado:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }

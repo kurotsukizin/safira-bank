@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safira Bank | Aprender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/educacao.css">
+    <script src="js/videos.js" defer></script>
+    <script src="js/educacao.js" defer></script>
+</head>
+<body>
+
+<a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="cabecalho-app">
+    <div class="container cabecalho-conteudo">
+        <a class="marca-app" href="inicio.html" aria-label="Safira Bank — Início">
+            <span class="icone-marca" aria-hidden="true">S</span>
+            <span>Safira Bank</span>
+        </a>
+        <nav class="menu-principal" aria-label="Navegação principal">
+            <a href="inicio.html">Início</a>
+            <a href="transferencia.html">Transferir</a>
+            <a href="historico.html">Histórico</a>
+            <a href="educacao.html" aria-current="page">Aprender</a>
+            <a href="index.html">Sair da demonstração</a>
+        </nav>
+    </div>
+</header>
+
+<main id="conteudo" class="container conteudo-app" tabindex="-1">
+
+    <div class="faixa-demonstracao">
+        Protótipo acadêmico · Dados fictícios · Sem operações reais
+    </div>
+
+    <section class="saudacao" aria-labelledby="titulo-aprender-pagina">
+        <div>
+            <p class="sobretitulo">EDUCAÇÃO FINANCEIRA</p>
+            <h1 id="titulo-aprender-pagina">Conta laranja: aprenda a se proteger</h1>
+            <p class="texto-secundario">
+                Conta laranja é uma conta usada para movimentar dinheiro de
+                origem ilícita em nome de quem não é o verdadeiro beneficiário
+                dos valores. Responda ao quiz e assista aos vídeos.
+            </p>
+        </div>
+    </section>
+
+    <div class="edu-abas" role="tablist" aria-label="Conteúdo educativo">
+        <button type="button" role="tab" id="aba-quiz" class="edu-aba"
+                aria-selected="true" aria-controls="painel-quiz">Quiz</button>
+        <button type="button" role="tab" id="aba-videos" class="edu-aba"
+                aria-selected="false" aria-controls="painel-videos" tabindex="-1">Vídeos</button>
+    </div>
+
+    <section id="painel-quiz" class="cartao edu-painel" role="tabpanel"
+             aria-labelledby="aba-quiz" tabindex="0">
+        <h2>Quiz: você reconheceria o risco?</h2>
+        <div id="quiz-area"></div>
+    </section>
+
+    <section id="painel-videos" class="cartao edu-painel" role="tabpanel"
+             aria-labelledby="aba-videos" tabindex="0" hidden>
+        <h2>Vídeos educativos</h2>
+        <p class="texto-secundario">
+            Selecione um vídeo para assistir. Para adicionar novos vídeos,
+            edite o arquivo <code>js/videos.js</code>.
+        </p>
+        <div id="videos-area" class="edu-videos"></div>
+    </section>
+
+    <aside class="aviso-cuidado" aria-labelledby="titulo-ajuda">
+        <div class="icone-aviso" aria-hidden="true">!</div>
+        <div>
+            <h2 id="titulo-ajuda">Recebeu uma proposta para usar a sua conta?</h2>
+            <p>Recuse, não envie documentos nem códigos e comunique o seu banco pelos canais oficiais.</p>
+        </div>
+    </aside>
+
+</main>
+
+<footer class="rodape-app">
+    <div class="container">Safira Bank · Projeto acadêmico · Ambiente de demonstração</div>
+</footer>
+
+</body>
+</html>
