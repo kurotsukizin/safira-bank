@@ -79,6 +79,11 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/transferencias"
+                        ).authenticated()
+
+                        .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/auth/me",
                                 "/api/contas/minhas"
